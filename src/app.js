@@ -10,6 +10,12 @@ const clientes = [
 	{ id: 3, nome: "joaozinho", idade: 8 },
 ];
 
+function buscaClientePorID(id) {
+	return clientes.findIndex(cliente => {
+		return cliente.id === Number(id);
+	});
+}
+
 app.get("/", (req, res) => {
 	res.status(200).send("Cadastro de Clientes - Pagina inicial");
 });
@@ -21,6 +27,11 @@ app.get("/clientes", (req, res) => {
 app.post("/clientes", (req, res) => {
 	clientes.push(req.body);
 	res.status(201).send("Cliente cadastrado com sucesso.");
+});
+
+app.get("/clientes/:id", (req, res) => {
+	const index = buscaClientePorID(req.params.id);
+	res.status(200).json(clientes[index]);
 });
 
 export default app;
