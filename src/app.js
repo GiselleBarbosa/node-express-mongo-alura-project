@@ -24,14 +24,20 @@ app.get("/clientes", (req, res) => {
 	res.status(200).json(clientes);
 });
 
+app.get("/clientes/:id", (req, res) => {
+	const index = buscaClientePorID(req.params.id);
+	res.status(200).json(clientes[index]);
+});
+
 app.post("/clientes", (req, res) => {
 	clientes.push(req.body);
 	res.status(201).send("Cliente cadastrado com sucesso.");
 });
 
-app.get("/clientes/:id", (req, res) => {
+app.put("/clientes/:id", (req, res) => {
 	const index = buscaClientePorID(req.params.id);
-	res.status(200).json(clientes[index]);
+	clientes[index].nome = req.body.nome;
+	res.status(200).json(clientes);
 });
 
 export default app;
