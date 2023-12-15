@@ -1,4 +1,15 @@
+import dataBaseConect from "./config/db-connect.js";
 import express from "express";
+
+const connection = await dataBaseConect();
+
+connection.on("error", error => {
+	console.error("Erro de conexao com MongoDB", error);
+});
+
+connection.once("open", () => {
+	console.log("A conexao com o banco de dados foi realizada com sucesso!!!");
+});
 
 const app = express();
 
