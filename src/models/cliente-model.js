@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const clienteSchemas = new mongoose.Schema(
+const clienteSchema = new mongoose.Schema(
 	{
 		id: { type: mongoose.Types.ObjectId },
 		nome: { type: String, required: true },
@@ -11,6 +11,6 @@ const clienteSchemas = new mongoose.Schema(
 	{ versionKey: false }
 );
 
-const cliente = mongoose.model("clientes", clienteSchemas);
+const clientes = mongoose.model("clientes", clienteSchema);
 
-export default cliente;
+export default clientes;

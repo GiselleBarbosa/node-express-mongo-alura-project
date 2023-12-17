@@ -5,7 +5,7 @@ const key = protetedKey();
 
 async function dataBaseConect() {
 	mongoose.connect(
-		`mongodb+srv://sellebarb:${key}@cluster0.geybdlg.mongodb.net/?retryWrites=true&w=majority`
+		`mongodb+srv://sellebarb:${key}@cluster0.geybdlg.mongodb.net/registro?retryWrites=true&w=majority`
 	);
 	return mongoose.connection;
 }
