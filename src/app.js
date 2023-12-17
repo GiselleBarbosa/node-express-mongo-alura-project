@@ -1,6 +1,6 @@
-import clientes from "./models/cliente-model.js";
 import dataBaseConect from "./config/db-connect.js";
 import express from "express";
+import routes from "./routes/index.js";
 
 const conexao = await dataBaseConect();
 
@@ -13,26 +13,11 @@ conexao.once("open", () => {
 });
 
 const app = express();
-
-app.use(express.json());
-
-app.get("/", (req, res) => {
-	res.status(200).send("Cadastro de Clientes - Pagina inicial");
-});
-
-app.get("/clientes", async (_req, res) => {
-	const listaCliente = await clientes.find({});
-	res.status(200).json(listaCliente);
-});
+routes(app);
 
 app.get("/cliente/:id", (req, res) => {
 	const index = buscaClientePorID(req.params.id);
 	res.status(200).json(clientes[index]);
-});
-
-app.post("/cliente", (req, res) => {
-	clientes.push(req.body);
-	res.status(201).send("Cliente cadastrado com sucesso.");
 });
 
 app.put("/cliente/:id", (req, res) => {
