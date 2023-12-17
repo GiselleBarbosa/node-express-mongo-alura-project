@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
-import protetedKey from "../../secrets/key.js";
-
-const key = protetedKey();
 
 async function dataBaseConect() {
-	mongoose.connect(
-		`mongodb+srv://sellebarb:${key}@cluster0.geybdlg.mongodb.net/registro?retryWrites=true&w=majority`
-	);
+	mongoose.connect(process.env.DB_CONNECTION_STRING);
 	return mongoose.connection;
 }
 
