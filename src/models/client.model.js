@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { orderSchema } from "./order.model.js";
 
 const clientSchema = new mongoose.Schema(
 	{
@@ -7,9 +8,9 @@ const clientSchema = new mongoose.Schema(
 		idade: { type: Number },
 		email: { type: String },
 		telefone: { type: String },
+		pedido: orderSchema,
 	},
-	{ versionKey: false }
-);
+	{ versionKey: false });
 
 const client = mongoose.model("clientes", clientSchema);
 
