@@ -29,7 +29,10 @@ class ClienteController {
 		const novoCliente = req.body;
 		try {
 			const pedidoEncontrado = await pedido.findById(novoCliente.pedido);
-			const clienteCompleto = {...novoCliente, pedido: { ...pedidoEncontrado }};
+			const clienteCompleto = {
+				...novoCliente,
+				pedido: { ...pedidoEncontrado },
+			};
 			const clienteCriado = await cliente.create(clienteCompleto);
 			res
 				.status(201)
@@ -47,6 +50,7 @@ class ClienteController {
 			await cliente.findByIdAndUpdate(id, req.body);
 			res.status(200).json({
 				message: "Cliente atualizado com sucesso.",
+				cliente,
 			});
 		} catch (error) {
 			res.status(500).json({
@@ -65,6 +69,18 @@ class ClienteController {
 		} catch (error) {
 			res.status(500).json({
 				message: `${error.message} - falha na remoção do cliente`,
+			});
+		}
+	}
+
+	static async listarClientesPorNome(req, res) {
+		const nome = req.query.nome;
+		try {
+			const clientesPorNome = await cliente.find({ nome: nome });
+			res.status(200).json(clientesPorNome);
+		} catch (error) {
+			res.status(500).json({
+				message: `${error.message} - falha na busca do cliente`,
 			});
 		}
 	}
