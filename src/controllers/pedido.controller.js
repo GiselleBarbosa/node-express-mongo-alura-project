@@ -1,10 +1,10 @@
-import { order } from "../models/order.model.js";
+import { pedido } from "../models/pedido.js";
 
-class OrderController {
-	static async readOrders(req, res) {
+class PedidoController {
+	static async listarPedidos(req, res) {
 		try {
-			const list = await order.find({});
-			res.status(200).json(list);
+			const listaPedidos = await pedido.find({});
+			res.status(200).json(listaPedidos);
 		} catch (error) {
 			res.status(500).json({
 				message: `${error.message} - falha na requisição`,
@@ -12,10 +12,10 @@ class OrderController {
 		}
 	}
 
-	static async readOrderByID(req, res) {
+	static async listarPedidoPorId(req, res) {
 		try {
 			const id = req.params.id;
-			const orderFound = await order.findById(id);
+			const orderFound = await pedido.findById(id);
 			res.status(200).json(orderFound);
 		} catch (error) {
 			res.status(500).json({
@@ -24,24 +24,24 @@ class OrderController {
 		}
 	}
 
-	static async createOrder(req, res) {
+	static async criarPedido(req, res) {
 		try {
-			const newOrder = await order.create(req.body);
-			res.status(201).json({
-				message: "pedido registrado com sucesso",
-				order: newOrder,
-			});
-		} catch (error) {
+			const novoPedido = await pedido.create(req.body);
+			res
+				.status(201)
+				.json({ message: "criado com sucesso!", cliente: novoPedido });
+		} catch (erro) {
 			res.status(500).json({
-				message: `${error.message} - falha ao cadastrar pedido.`,
+				message: `${erro.message} - falha ao 
+            cadastrar pedido`,
 			});
 		}
 	}
 
-	static async updateOrder(req, res) {
+	static async atualizarPedido(req, res) {
 		try {
 			const id = req.params.id;
-			await order.findByIdAndUpdate(id, req.body);
+			await pedido.findByIdAndUpdate(id, req.body);
 			res.status(200).json({
 				message: "pedido atualizado com sucesso.",
 			});
@@ -52,10 +52,10 @@ class OrderController {
 		}
 	}
 
-	static async removeOrder(req, res) {
+	static async removerPedido(req, res) {
 		try {
 			const id = req.params.id;
-			await order.findByIdAndDelete(id);
+			await pedido.findByIdAndDelete(id);
 			res.status(200).json({
 				message: "pedido excluído com sucesso.",
 			});
@@ -67,4 +67,4 @@ class OrderController {
 	}
 }
 
-export default OrderController;
+export default PedidoController;
